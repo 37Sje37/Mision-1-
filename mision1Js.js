@@ -6,33 +6,31 @@ const tiempoTexto = document.getElementById("tiempo");
 const mensaje = document.getElementById("mensaje");
 const botonReiniciar = document.getElementById("reiniciar");
 
-const estado = {
-    puntos: 0,
-    ronda: 1,
-    diferente: 0,
-    tiempo: 30,
-    intervalo: null,
-    jugando: true
-};
+let puntos = 0;
+let ronda = 1;
+let diferente = 0;
+let tiempo = 30;
+let intervalo;
+let jugando = true;
 
-// crear las casillas
+
+// Crear las casillas
 function crearRonda() {
 
     tablero.innerHTML = "";
 
     let tamaño = 4;
-
-    tablero.style.gridTemplateColumns = "repeat(" + tamaño + ", 1fr)";
-
     let numeroCasillas = tamaño * tamaño;
 
-    estado.diferente = Math.floor(Math.random() * numeroCasillas);
+    tablero.style.gridTemplateColumns = "repeat(4, 1fr)";
+
+    diferente = Math.floor(Math.random() * numeroCasillas);
 
     let rojo = Math.floor(Math.random() * 180) + 40;
     let verde = Math.floor(Math.random() * 180) + 40;
     let azul = Math.floor(Math.random() * 180) + 40;
 
-    let diferencia = 30 - estado.ronda;
+    let diferencia = 30 - ronda;
 
     if (diferencia < 4) {
         diferencia = 4;
@@ -40,11 +38,24 @@ function crearRonda() {
 
     let colorNormal = "rgb(" + rojo + "," + verde + "," + azul + ")";
 
-    let r2 = Math.min(255, rojo + diferencia);
-    let g2 = Math.min(255, verde + diferencia);
-    let b2 = Math.min(255, azul + diferencia);
+    let rojo2 = rojo + diferencia;
+    let verde2 = verde + diferencia;
+    let azul2 = azul + diferencia;
 
-    let colorDiferente = "rgb(" + r2 + "," + g2 + "," + b2 + ")";
+    if (rojo2 > 255) {
+        rojo2 = 255;
+    }
+
+    if (verde2 > 255) {
+        verde2 = 255;
+    }
+
+    if (azul2 > 255) {
+        azul2 = 255;
+    }
+
+    let colorDiferente = "rgb(" + rojo2 + "," + verde2 + "," + azul2 + ")";
+
 
     for (let i = 0; i < numeroCasillas; i++) {
 
@@ -52,9 +63,9 @@ function crearRonda() {
 
         casilla.classList.add("casilla");
 
-        casilla.dataset.index = i;
+        casilla.setAttribute("data-posicion", i);
 
-        if (i == estado.diferente) {
+        if (i == diferente) {
             casilla.style.backgroundColor = colorDiferente;
         } else {
             casilla.style.backgroundColor = colorNormal;
@@ -64,125 +75,121 @@ function crearRonda() {
     }
 }
 
-// tiempo
+
+// Temporizador
 function iniciarTemporizador() {
 
-    clearInterval(estado.intervalo);
+    clearInterval(intervalo);
 
-    estado.intervalo = setInterval(function() {
+    intervalo = setInterval(function() {
 
-        estado.tiempo--;
+        tiempo--;
 
-        tiempoTexto.textContent = estado.tiempo;
+        tiempoTexto.textContent = tiempo;
 
-        if (estado.tiempo <= 0) {
+        if (tiempo <= 0) {
             terminarJuego();
         }
 
     }, 1000);
 }
 
-// acabar
+
+// Terminar juego
 function terminarJuego() {
 
-    clearInterval(estado.intervalo);
+    clearInterval(intervalo);
 
-    estado.jugando = false;
+    jugando = false;
 
-    mensaje.textContent = "Se acabo el tiempo. Puntos: " + estado.puntos;
+    mensaje.textContent = "Se acabo el tiempo. Puntos: " + puntos;
 
     mensaje.classList.add("fin");
 }
 
-// actualizar los numeros
+
+// Actualizar puntos, ronda y tiempo
 function actualizar() {
 
-    puntosTexto.textContent = estado.puntos;
-    rondaTexto.textContent = estado.ronda;
-    tiempoTexto.textContent = estado.tiempo;
-
+    puntosTexto.textContent = puntos;
+    rondaTexto.textContent = ronda;
+    tiempoTexto.textContent = tiempo;
 }
 
-// cuando se pulsa una casilla
+
+// Pulsar una casilla
 tablero.addEventListener("click", function(e) {
 
-    if (estado.jugando == false) {
+    if (jugando == false) {
         return;
     }
 
-    let casilla = e.target.closest(".casilla");
+    if (e.target.classList.contains("casilla")) {
 
-    if (casilla == null) {
-        return;
-    }
+        let posicion = Number(e.target.getAttribute("data-posicion"));
 
-    let posicion = Number(casilla.dataset.index);
+        if (posicion == diferente) {
 
-    if (posicion == estado.diferente) {
+            puntos++;
+            ronda++;
 
-        estado.puntos = estado.puntos + 1;
+            mensaje.textContent = "Correcto!!";
+            mensaje.classList.remove("fin");
 
-        estado.ronda++;
+            actualizar();
+            crearRonda();
 
-        mensaje.textContent = "Correcto!!";
+        } else {
 
-        mensaje.classList.remove("fin");
+            puntos--;
 
-        actualizar();
+            if (puntos < 0) {
+                puntos = 0;
+            }
 
-        crearRonda();
+            mensaje.textContent = "Ese no es. Busca otro";
 
-    } else {
-
-        estado.puntos = estado.puntos - 1;
-
-        if (estado.puntos < 0) {
-            estado.puntos = 0;
+            actualizar();
         }
-
-        mensaje.textContent = "Ese no es. Busca otro";
-
-        actualizar();
     }
-
 });
 
-// reiniciar
+
+// Reiniciar
 function reiniciar() {
 
-    clearInterval(estado.intervalo);
+    clearInterval(intervalo);
 
-    estado.puntos = 0;
-    estado.ronda = 1;
-    estado.diferente = 0;
-    estado.tiempo = 30;
-    estado.jugando = true;
+    puntos = 0;
+    ronda = 1;
+    diferente = 0;
+    tiempo = 30;
+    jugando = true;
 
     mensaje.textContent = "Encuentra el color diferente";
-
     mensaje.classList.remove("fin");
 
     actualizar();
-
     crearRonda();
-
     iniciarTemporizador();
 }
 
+
 botonReiniciar.addEventListener("click", reiniciar);
 
-// modo oscuro con la d
+
+// Modo oscuro pulsando D
 document.addEventListener("keydown", function(e) {
 
-    if (e.key.toLowerCase() == "d") {
-
+    if (e.key == "d" || e.key == "D") {
         document.body.classList.toggle("oscuro");
-
     }
 
 });
 
-// empezar
+
+// Empezar el juego
 crearRonda();
 actualizar();
 iniciarTemporizador();
+
