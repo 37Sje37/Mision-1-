@@ -1,0 +1,124 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Cuerpo*/
+body {
+    background: #f1f5f9;
+    color: #111827;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+}
+
+/* modo oscuro*/
+
+body.oscuro {
+    background: #0f172a;
+    color: white;
+}
+
+/* CONTENEDOR */
+.contenedor {
+    width: 800px;
+    max-width: 95%;
+    padding: 30px;
+    text-align: center;
+}
+
+/* Cabecera */
+.cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+/* ESTADÍSTICAS */
+.estadisticas {
+    display: flex;
+    justify-content: center;
+    gap: 45px;
+    margin-bottom: 30px;
+}
+
+.dato {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.dato span:first-child {
+    font-size: 14px;
+    color: #64748b;
+}
+
+body.oscuro .dato span:first-child {
+    color: #94a3b8;
+}
+
+
+/* Tablero */
+#tablero {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    max-width: 500px;
+    margin: 0 auto 25px;
+}
+
+/* Casillas */
+.casilla {
+    width: 100%;
+    aspect-ratio: 1;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.15s;
+}
+
+/* Botones */
+.botones {
+    display: flex;
+    justify-content: center;
+}
+
+#reiniciar {
+    border: none;
+    border-radius: 10px;
+    padding: 14px 30px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #eab308;
+    color: #111827;
+    transition: 0.2s;
+}
+
+#reiniciar:hover {
+    background: #facc15;
+    transform: scale(1.03);
+}
+
+/* MENSAJE */
+#mensaje {
+    min-height: 30px;
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #16a34a;
+}
+
+/* CUANDO SE ACABA EL TIEMPO */
+#mensaje.fin {
+    color: #dc2626;
+}
