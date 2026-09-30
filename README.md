@@ -69,8 +69,8 @@ La página tiene:
 - Un mensaje que indica si has acertado o si se ha acabado la partida.
 
 ## Uso IA
--¿Como haer un README y que debe contener?
--¿Como aplico un random a colores en JS?
+- ¿Como haer un README y que debe contener?
+- ¿Como aplico un random a colores en JS?
 
 ## Autopsia
 1. El tablero se queda fijo en 4×4.
