@@ -36,7 +36,7 @@ function crearRonda() {
         diferencia = 4;
     }
 
-    let colorNormal = "rgb(" + rojo + "," + verde + "," + azul + ")";
+   let colorNormal = `rgb(${rojo}, ${verde}, ${azul})`;
 
     let rojo2 = rojo + diferencia;
     let verde2 = verde + diferencia;
@@ -54,7 +54,7 @@ function crearRonda() {
         azul2 = 255;
     }
 
-    let colorDiferente = "rgb(" + rojo2 + "," + verde2 + "," + azul2 + ")";
+    let colorDiferente = `rgb(${rojo2}, ${verde2}, ${azul2})`;
 
 
     for (let i = 0; i < numeroCasillas; i++) {
@@ -70,7 +70,6 @@ function crearRonda() {
         } else {
             casilla.style.backgroundColor = colorNormal;
         }
-
         tablero.appendChild(casilla);
     }
 }
@@ -102,7 +101,7 @@ function terminarJuego() {
 
     jugando = false;
 
-    mensaje.textContent = "Se acabo el tiempo. Puntos: " + puntos;
+    mensaje.textContent = `Se acabo el tiempo. Puntos: ${puntos}`;
 
     mensaje.classList.add("fin");
 }
@@ -120,7 +119,7 @@ function actualizar() {
 // Pulsar una casilla
 tablero.addEventListener("click", function(e) {
 
-    if (jugando == false) {
+    if (jugando === false) {
         return;
     }
 
@@ -128,7 +127,7 @@ tablero.addEventListener("click", function(e) {
 
         let posicion = Number(e.target.getAttribute("data-posicion"));
 
-        if (posicion == diferente) {
+        if (posicion === diferente) {
 
             puntos++;
             ronda++;
@@ -181,7 +180,7 @@ botonReiniciar.addEventListener("click", reiniciar);
 // Modo oscuro pulsando D
 document.addEventListener("keydown", function(e) {
 
-    if (e.key == "d" || e.key == "D") {
+    if (e.key === "d" || e.key === "D") {
         document.body.classList.toggle("oscuro");
     }
 

@@ -68,6 +68,6 @@ La página tiene:
 - Una zona donde aparecen los puntos, la ronda y el tiempo.
 - Un mensaje que indica si has acertado o si se ha acabado la partida.
 
-## Promts a IA
+## Uso IA
 -¿Como haer un README y que debe contener?
 -¿Como aplico un random a colores en JS?
