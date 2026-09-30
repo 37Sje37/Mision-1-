@@ -71,3 +71,10 @@ La página tiene:
 ## Uso IA
 -¿Como haer un README y que debe contener?
 -¿Como aplico un random a colores en JS?
+
+## Autopsia
+1. El tablero se queda fijo en 4×4.
+Aunque podría aumentar el tablero a 5×5 o 6×6 conforme avanzan las rondas, no lo hice: mantuve las 16 casillas para que el juego siguiera siendo sencillo y la partida se centrara en distinguir los colores. La alternativa habría añadido dificultad aumentando el número de casillas, pero habría requerido cambiar también el tamaño de la cuadrícula y la cantidad de casillas que se crean.
+
+2. La dificultad aumenta cambiando el color, no el tamaño del tablero.
+En cada acierto, reduzco la diferencia entre el color normal y el diferente hasta un mínimo de 4. La alternativa era combinar esa reducción con tableros cada vez mayores, por ejemplo, pasar a 5×5 y luego a 6×6. No lo hice para no aumentar la dificultad de dos maneras a la vez.
