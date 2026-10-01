@@ -1,6 +1,6 @@
 # Encuentra el diferente
 
-Misión M1 · El Despertar del DOM — Desarrollo Web 1.
+Misión M1 · El Despertar del DOM — Dearrollo Web 1. 
 
 ## Cómo probarlo
 Abre el archivo HTML en el navegador (o con Live Server).
@@ -14,15 +14,13 @@ También puedes pulsar «Reiniciar» para empezar una partida nueva.
 Tecla secreta: pulsa "d" para activar o desactivar el modo nocturno.
 
 ## Uso de IA
-
-Usé Gemini CLI (VS Code) como pareja de programación, fase a fase.
+Usé Chat GPT como pareja de programación.
 
 Promts utilizados:
-    - ¿Cómo puedo hacer que aparezca una casilla con un color diferente al resto de forma aleatoria?
-    - ¿Cómo puedo saber qué casilla ha pulsado el usuario sin poner un evento en cada casilla?
+    -¿Cómo puedo hacer que aparezca una casilla con un color diferente al resto de forma aleatoria?
+    -¿Cómo puedo saber qué casilla ha pulsado el usuario sin poner un evento en cada casilla? y un ejemplo
 
 ## Autopsia
-
 1. Guardo la posición de la casilla diferente en una variable del
    objeto `estado` en vez de buscarla en el DOM cada vez. El DOM solo
    muestra el estado del juego, mientras que la lógica mantiene cuál
