@@ -1,73 +1,48 @@
 # Encuentra el diferente
 
-## ¿En qué consiste?
+Misión M1 · El Despertar del DOM — Desarrollo Web 1.
 
-Este proyecto es un juego en el que tienes que encontrar la casilla que tiene un color diferente a las demás.
+## Cómo probarlo
+Abre el archivo HTML en el navegador (o con Live Server).
+El juego comienza automáticamente y tienes 30 segundos para encontrar
+la casilla cuyo color es diferente al resto.
 
-Tienes 30 segundos para conseguir todos los puntos que puedas.
+Cada vez que aciertas, aumenta la ronda y aparece un nuevo tablero.
+Si pulsas una casilla incorrecta, pierdes un punto.
 
-## Lenguajes
+También puedes pulsar «Reiniciar» para empezar una partida nueva.
+Tecla secreta: pulsa "d" para activar o desactivar el modo nocturno.
 
-- HTML,CSS, JavaScript
+## Uso de IA
 
-## Archivos
+Usé Gemini CLI (VS Code) como pareja de programación, fase a fase.
 
-- `Mision1.html`: contiene la estructura de la página.
-- `mision1CSS.css`: contiene el diseño y los estilos.
-- `mision1Js.js`: contiene el funcionamiento del juego.
+Promts utilizados:
+    - ¿Cómo puedo hacer que aparezca una casilla con un color diferente al resto de forma aleatoria?
+    - ¿Cómo puedo saber qué casilla ha pulsado el usuario sin poner un evento en cada casilla?
 
-## Cómo jugar
+## Autopsia
 
-1. Abre el archivo `Mision1.html` en un navegador.
-2. Aparecerá un tablero con 16 casillas, colocadas en una cuadrícula de 4x4.
-3. Una casilla tendrá un color un poco diferente.
-4. Haz clic en esa casilla.
-5. Si aciertas, ganas un punto y pasas a la siguiente ronda.
-6. Si fallas, pierdes un punto, pero nunca puedes tener menos de 0.
-7. Cuando el tiempo llegue a 0, la partida termina.
-8. Puedes pulsar el botón `Reiniciar` para volver a empezar.
+1. Guardo la posición de la casilla diferente en una variable del
+   objeto `estado` en vez de buscarla en el DOM cada vez. El DOM solo
+   muestra el estado del juego, mientras que la lógica mantiene cuál
+   es la casilla correcta. Descarté buscar la casilla por su color o
+   por su clase CSS porque eso mezclaría la lógica del juego con la
+   presentación.
 
-## Cómo funciona el juego
+2. Uso un solo listener en el contenedor del tablero en vez de poner
+   un listener en cada casilla. Con `e.target.closest(".casilla")`
+   puedo saber qué casilla se ha pulsado y consultar su posición
+   mediante `dataset.index`. Esto evita tener que crear y gestionar
+   muchos listeners cada vez que se genera una ronda.
 
-### Puntos
+3. Uso `setInterval` para controlar la cuenta atrás de 30 segundos.
+   Antes de iniciar otro temporizador utilizo `clearInterval` para
+   evitar que se ejecuten varios temporizadores a la vez, especialmente
+   cuando se reinicia la partida.
 
-- Si aciertas, ganas 1 punto.
-- Si fallas, pierdes 1 punto.
-- La puntuación no puede bajar de 0.
-
-### Rondas
-
-Cada vez que aciertas, la ronda aumenta.
-
-A medida que avanzan las rondas, los colores se parecen más, por lo que es más difícil encontrar la casilla diferente.
-
-### Tiempo
-
-La partida empieza con 30 segundos.
-
-Cada segundo se resta uno al tiempo. Cuando llega a 0, el juego termina y aparece un mensaje con los puntos conseguidos.
-
-### Colores
-
-Los colores se crean de forma aleatoria.
-
-Todas las casillas tienen el mismo color menos una, que tiene una pequeña diferencia de color.
-
-## Controles
-
-- **Hacer clic en una casilla:** elegir una respuesta.
-- **Botón Reiniciar:** empezar la partida de nuevo.
-- **Tecla D:** activar o quitar el modo oscuro.
-
-## Diseño
-
-La página tiene:
-
-- Un tablero de 4x4.
-- Un botón para reiniciar.
-- Una zona donde aparecen los puntos, la ronda y el tiempo.
-- Un mensaje que indica si has acertado o si se ha acabado la partida.
-
-## Promts a IA
--¿Como haer un README y que debe contener?
--¿Como aplico un random a colores en JS?
+4. El estado del juego se guarda en un único objeto llamado `estado`.
+   Ahí se almacenan los puntos, la ronda, la posición diferente, el
+   tiempo, el intervalo y si la partida sigue activa. Así puedo
+   controlar el juego desde un único sitio y actualizar el DOM con la
+   función `actualizar()`.
