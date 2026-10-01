@@ -23,7 +23,7 @@ body.oscuro {
     color: white;
 }
 
-/* CONTENEDOR */
+/* Contenedor */
 .contenedor {
     width: 800px;
     max-width: 95%;
@@ -43,7 +43,7 @@ h1 {
     font-size: 36px;
 }
 
-/* ESTADÍSTICAS */
+/* Estadisticas */
 .estadisticas {
     display: flex;
     justify-content: center;
@@ -109,7 +109,7 @@ body.oscuro .dato span:first-child {
     transform: scale(1.03);
 }
 
-/* MENSAJE */
+/* Mensaje */
 #mensaje {
     min-height: 30px;
     margin-top: 20px;
@@ -118,7 +118,7 @@ body.oscuro .dato span:first-child {
     color: #16a34a;
 }
 
-/* CUANDO SE ACABA EL TIEMPO */
+/* Cuando se acaba el tiempo */
 #mensaje.fin {
     color: #dc2626;
 }
